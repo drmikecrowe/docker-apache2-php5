@@ -8,8 +8,9 @@ RUN \
     && DEBIAN_FRONTEND=noninteractive apt-get -y -q --no-install-recommends --force-yes install deb-multimedia-keyring curl ca-certificates \
     && curl -s http://deb.antage.name/apt.key | apt-key add - \
     && curl -s https://download.newrelic.com/548C16BF.gpg | apt-key add - \
-    && apt-get -y -q update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -y -q --no-install-recommends install \
+    && apt-get -y -q update
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y -q --no-install-recommends install \
         curl \
         ca-certificates \
         imagemagick \
@@ -17,21 +18,78 @@ RUN \
         apache2-mpm-prefork \
         apache2 \
         apache2-dbg \
+        libapache2-mod-php5 \
         libapr1-dbg \
         libaprutil1-dbg \
-        php5-cli \
-        php5-mysql \
-        php5-gd \
-        php5-mcrypt \
-        php5-curl \
-        php5-memcache \
-        php5-xsl \
-        php5-xdebug \
-        php5-intl \
-        php5-xmlrpc \
-        php5 \
         php-pear \
+        php5 \
+        php5-adodb \
+        php5-cgi \
+        php5-cli \
+        php5-common \
+        php5-curl \
         php5-dbg \
+        php5-enchant \
+        php5-exactimage \
+        php5-fpm \
+        php5-gd \
+        php5-gdcm \
+        php5-gearman \
+        php5-geoip \
+        php5-geos \
+        php5-gmp \
+        php5-gnupg \
+        php5-igbinary \
+        php5-imagick \
+        php5-imap \
+        php5-interbase \
+        php5-intl \
+        php5-json \
+        php5-lasso \
+        php5-ldap \
+        php5-librdf \
+        php5-libvirt-php \
+        php5-mapscript \
+        php5-mcrypt \
+        php5-memcache \
+        php5-memcached \
+        php5-mongo \
+        php5-msgpack \
+        php5-mysql \
+        php5-oauth \
+        php5-odbc \
+        php5-pecl-http \
+        php5-pgsql \
+        php5-phpdbg \
+        php5-pinba \
+        php5-propro \
+        php5-pspell \
+        php5-radius \
+        php5-raphf \
+        php5-readline \
+        php5-recode \
+        php5-redis \
+        php5-remctl \
+        php5-rrd \
+        php5-sasl \
+        php5-snmp \
+        php5-solr \
+        php5-sqlite \
+        php5-ssh2 \
+        php5-stomp \
+        php5-svn \
+        php5-sybase \
+        php5-tidy \
+        php5-tokyo-tyrant \
+        php5-twig \
+        php5-uprofiler \
+        php5-vtkgdcm \
+        php5-xcache \
+        php5-xdebug \
+        php5-xhprof \
+        php5-xmlrpc \
+        php5-xsl \
+        php5-zmq \
         gdb \
         ffmpeg \
         imagemagick \
@@ -39,8 +97,9 @@ RUN \
         ghostscript \
         wget \
         pngquant \
-        newrelic-php5 \
-    && apt-get clean \
+        newrelic-php5
+
+RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm /var/log/dpkg.log \
     && rm /var/www/html/index.html \
@@ -68,8 +127,7 @@ RUN \
     && rm -r /root/.gnupg/ \
     && chmod +x /usr/local/bin/gosu
 
-RUN \
-    rm /etc/php5/apache2/conf.d/* \
+RUN rm -f /etc/php5/apache2/conf.d/* \
     && rm /etc/php5/cli/conf.d/* \
     && php5enmod -s ALL opcache \
     && rm /etc/apache2/conf-enabled/* \
